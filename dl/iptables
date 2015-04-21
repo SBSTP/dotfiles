@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# loopback
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+# local network
+iptables -A INPUT -s 192.168.0.0/24 -j ACCEPT
+iptables -A OUTPUT -d 192.168.0.0/24 -j ACCEPT
+
+# allow vpn connection
+iptables -A INPUT -p udp --sport 1194 -j ACCEPT
+iptables -A OUTPUT -p udp --dport 1194 -j ACCEPT
+
+# allow google dns
+iptables -A INPUT -s 8.8.8.8 -j ACCEPT
+iptables -A OUTPUT -d 8.8.8.8 -j ACCEPT
+
+# allow traffic to openvpn
+iptables -A INPUT -s nl.privateinternetaccess.com -j ACCEPT
+iptables -A OUTPUT -d nl.privateinternetaccess.com -j ACCEPT
+
+# accept tun interface
+iptables -A OUTPUT -o tun+ -j ACCEPT
+iptables -A INPUT -i tun+ -j ACCEPT
+
+# drop the rest
+iptables -A INPUT -j DROP
+iptables -A OUTPUT -j DROP
