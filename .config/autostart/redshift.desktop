@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=redshift
+X-GNOME-Autostart-enabled=true
+NoDisplay=false
+Hidden=false
+Name[en_CA]=redshift
+Comment[en_CA]=
+X-GNOME-Autostart-Delay=0
