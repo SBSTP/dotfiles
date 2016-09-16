@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+
+from gi.repository import GObject
+from pydbus import SessionBus
+import os
+
+def driver_remove():
+    print('Removing driver')
+    os.system('sudo modprobe -r rtl8192ee')
+
+def driver_install():
+    print('Installing driver')
+    os.system('sudo modprobe rtl8192ee')
+
+ACTIONS = {
+    "locked": driver_remove,
+    "unlocked": driver_install,
+}
+
+def handler(sender, object, iface, signal, params):
+    print(signal)
+    try:
+        ACTIONS[signal.lower()]()
+    except KeyError:
+        pass
+
+if __name__ == '__main__':
+    print('Started...')
+    driver_remove()
+    driver_install()
+
+    print('Starting dbus...')
+    loop = GObject.MainLoop()
+    bus = SessionBus()
+    bus.subscribe(object='/com/canonical/Unity/Session', iface='com.canonical.Unity.Session', signal_fired=handler)
+
+    loop.run()
