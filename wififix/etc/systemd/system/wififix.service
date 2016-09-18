@@ -1,0 +1,11 @@
+[Unit]
+Description=Fix wifi issues
+After=network.target suspend.target
+
+[Service]
+User=root
+Type=simple
+ExecStart=/usr/local/bin/wififix
+
+[Install]
+WantedBy=network.target suspend.target

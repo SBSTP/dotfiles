@@ -1,2 +1,0 @@
-%sudo ALL = (root) NOPASSWD: /sbin/modprobe rtl8192ee
-%sudo ALL = (root) NOPASSWD: /sbin/modprobe -r rtl8192ee
