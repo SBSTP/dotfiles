@@ -4,7 +4,7 @@ After=network.target suspend.target
 
 [Service]
 User=root
-Type=simple
+Type=idle
 ExecStart=/usr/local/bin/wififix
 
 [Install]
